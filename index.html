@@ -8,15 +8,75 @@
 <body>
     <div id="app">
         Hello {{ message }}!
+        <a v-bind:href="url" v-bind:class="{ red: isRed, green: isGreen, big:isBig }">{{ name }}</a>
+        <a v-bind:href="url" v-bind:class="[ isBig?'big':'small',]" :style="{background: isBlue ? 'blue':'' }">{{ name }}</a>
+        <a v-if="type === 'A'">A</a>
+        <a v-else-if="type === 'B'">B</a>
+        <a v-else="type === 'C'">C</a>
+        <h1 v-show="isShow">isShow</h1>
+        <button @click="click1">Change</button>
+        <button v-on:dblclick="click2($event)">数值:{{ counter }}</button>
+        <ul>
+            <li v-for="item,index in items" :key="index"> <!-- :key 等同于v-bind:key -->
+                {{ index }}:{{ item.text }}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="value,key in object">
+                {{ key }}:{{ value }}
+            </li>
+        </ul>
     </div>
     <script type="text/javascript">
         var data    =   {
+            counter: 0,
             message: 'Vue',
+            name: 'Baidu',
+            url: 'https://www.baidu.com',
+            isRed: true,
+            isGreen: false,
+            isBig: false,
+            isBlue: false,
+            type: null,
+            isShow: false,
+            items: [
+                { text: 'Apple' },
+                { text: 'Banana' },
+                { text: 'Strawberry' },
+                { text: 'Watermelon' },
+            ],
+            object: {
+                title: 'My First Learn JS Project of Vue.',
+                author: 'Ora',
+                date: '2020/07/30',
+            },
         };
         var vm      =   new Vue({
             el: '#app',
             data: data,
+            methods: {
+                click1: function () {
+                    data.name = 'Google'
+                    data.url = 'https://www.google.com'
+                    data.isRed = false
+                    data.isGreen = true
+                    data.isBig = true
+                    data.isBlue = true
+                    data.type = 'A'
+                    data.isShow = true
+                },
+                click2: function (event) {
+                    this.counter++
+                    console.log(event)
+                }
+            },
         });
     </script>
+    <style>
+        .red{color: red}
+        .green{color: green}
+        .small{font-size: small}
+        .big{font-size: large}
+    </style>
 </body>
 </html>
