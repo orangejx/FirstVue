@@ -26,6 +26,9 @@
                 {{ key }}:{{ value }}
             </li>
         </ul>
+        <br>
+        <input type="text" placeholder="Enter text plz~" v-model="inputText" /><button @click="reverse">反转文字</button>
+        <p>您输入的是: {{ inputText }}</p>
     </div>
     <script type="text/javascript">
         var data    =   {
@@ -39,6 +42,7 @@
             isBlue: false,
             type: null,
             isShow: false,
+            inputText: 'This is Test Text!!',
             items: [
                 { text: 'Apple' },
                 { text: 'Banana' },
@@ -68,6 +72,9 @@
                 click2: function (event) {
                     this.counter++
                     console.log(event)
+                },
+                reverse: function () {
+                    this.inputText = this.inputText.split('').reverse().join('')
                 }
             },
         });
